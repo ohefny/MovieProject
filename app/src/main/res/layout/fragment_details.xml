@@ -1,0 +1,171 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nestedscrollview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#3eb69e"
+            android:orientation="vertical"
+            android:paddingBottom="30dp"
+            android:paddingLeft="20dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:clickable="false"
+                android:paddingTop="20dp"
+                android:text="TEXT"
+                android:textColor="#ffffff"
+                android:textSize="25dp"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="horizontal"
+            android:paddingLeft="30dp"
+            android:paddingTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:weightSum="5">
+
+            <ImageView
+                android:id="@+id/poster"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="2" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+
+                android:layout_weight="3"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:layout_marginLeft="7dp"
+                >
+
+                <TextView
+                    android:id="@+id/year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:text="TEXT"
+                    android:textColor="#8b8989"
+                    android:textSize="25dp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/vote_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:text="TEXT"
+                    android:textColor="#8b8989"
+                    android:textSize="20dp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:text="TEXT"
+                    android:textColor="#8b8989"
+                    android:textSize="18dp" />
+
+                <CheckBox
+                    android:id="@+id/fav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@android:drawable/btn_star" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingTop="0dp"
+            android:textColor="#8b8989"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/trailerHeader"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#3eb69e"
+
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="Trailers"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+
+            />
+
+        <LinearLayout
+            android:id="@+id/trailerlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"></LinearLayout>
+
+        <TextView
+            android:id="@+id/reviewHeader"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#3eb69e"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="Reviews"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+
+            />
+
+        <LinearLayout
+            android:id="@+id/reviewslinearlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"></LinearLayout>
+
+        <TextView
+            android:id="@+id/reviewContent"
+            android:background="@drawable/abc_list_pressed_holo_light"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp" />
+
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

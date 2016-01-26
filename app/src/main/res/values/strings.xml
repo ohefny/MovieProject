@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name" translatable="false">Movie Application</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_details">DetailsActivity</string>
+    <string name="action_share">Share</string>
+    <string name="sort_by">Sort By</string>
+    <string name="pref_sort">Sorting</string>
+    <string name="sort_via_rate">highest_rated</string>
+    <string name="sort_via_popularity">popularity</string>
+
+    <array name="pref_sort_values">
+        <item>vote_average</item>
+        <item>popularity</item>
+        <item>vote_count</item>
+        <item>favorites</item>
+    </array>
+    <array name="pref_sort_options">
+        <item>By Top Rate</item>
+        <item>By Popularity</item>
+        <item>By Vote count</item>
+        <item>Favorites</item>
+
+    </array>
+</resources>
