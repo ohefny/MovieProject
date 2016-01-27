@@ -101,7 +101,7 @@ public class MainFragment extends Fragment {
                 buildMoviesArray(jsonStr, true);
             imageAdapter = new ImageAdapter(getActivity(), movieClassesList);
             buildGrid();
-             if(isTablet(getActivity())){
+             if(isTablet(getActivity()) &&movieClassesList!=null&&movieClassesList.size()>0){
                  ((OnMovieSelectionChangeListener) getActivity()).OnSelectionChanged(movieClassesList.get(0));
              }
 
