@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements OnMovieSelectionC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+//
         if (findViewById(R.id.details_container) != null) {
             mTwoPanel = true;
             if (savedInstanceState == null) {

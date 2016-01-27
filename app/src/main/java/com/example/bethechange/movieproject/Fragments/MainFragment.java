@@ -42,7 +42,7 @@ public class MainFragment extends Fragment {
     ArrayList<MovieClass> movieClassesList;
     ArrayList<MovieClass> arrayList;
     ArrayList<MovieClass> favoritesList;
-    final String KEY_PARAM = "&api_key=b8be982434834910f4662f9e5fb3bacb";
+    final String KEY_PARAM = "&api_key=YourKey";
     final String BASEURL_PARAM = "http://api.themoviedb.org/3/discover/movie?page=";
     final String SORT_BASE = "&sort_by=";
     String sortBy = "popularity";

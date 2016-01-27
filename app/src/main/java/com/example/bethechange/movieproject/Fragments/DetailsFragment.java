@@ -44,7 +44,7 @@ public class DetailsFragment extends Fragment {
     ExpandableListView reviewsListView;
     boolean isFav = false;
     final String BASE_URL = "http://api.themoviedb.org/3/movie/";
-    final String API_KEY = "?api_key=b8be982434834910f4662f9e5fb3bacb";
+    final String API_KEY = "?api_key=YourKey";
     HashMap<String, String> trailerseMap;
     HashMap<String, String> reviewseMap;
     android.support.v4.widget.NestedScrollView rootview;
