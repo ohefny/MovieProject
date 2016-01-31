@@ -18,8 +18,6 @@ public class MovieClass implements Parcelable {
     boolean adult;
     String overview;
     String release_date;
-    //Date releaseDate;
-    int length;
     int[] genre_ids;
     int id;
     String original_title;
@@ -43,6 +41,7 @@ public class MovieClass implements Parcelable {
     }
 
     public MovieClass() {
+
     }
 
 
@@ -107,7 +106,7 @@ public class MovieClass implements Parcelable {
     }
 
     public String getOriginal_title() {
-        if (original_title.length() == 0)
+        if (original_title!=null&&original_title.length() == 0)
             original_title = "No Title Available";
         return original_title;
     }
@@ -171,14 +170,6 @@ public class MovieClass implements Parcelable {
 
     }
 
-   /* public ArrayList<String>getVideosNames(){
-        ArrayList<String>names=new ArrayList<String>();
-        for(int i=0;i<videosInfo.size();i++){
-            names.add(videosInfo.get(i).getName());
-
-        }
-        return  names;
-    }*/
     public ArrayList<VideoInfo> getVideosInfo() {
         if(videosInfo==null){
             videosInfo=new ArrayList<>();
@@ -192,7 +183,6 @@ public class MovieClass implements Parcelable {
 
 
     }
-    /*
     public void setVideosInfo(ArrayList<VideoInfo>videosInfo) {
 
             this.videosInfo=new ArrayList<VideoInfo>(videosInfo);
@@ -200,7 +190,7 @@ public class MovieClass implements Parcelable {
     }
     public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
-    }*/
+    }
 
     public ArrayList<Review> getReviews() {
         if(reviews==null){
@@ -215,23 +205,24 @@ public class MovieClass implements Parcelable {
     protected MovieClass(Parcel in) {
         vote_average = in.readFloat();
         poster_path = in.readString();
-        adult = in.readByte() != 0x00;
+       // adult = in.readByte() != 0x00;
         overview = in.readString();
         release_date = in.readString();
-        length = in.readInt();
+       // length = in.readInt();
 
         // genre_ids=new int[3];
-        genre_ids = new int[length];
-        in.readIntArray(genre_ids);
+      //  genre_ids = new int[length];
+       // in.readIntArray(genre_ids);
         id = in.readInt();
-        original_title = in.readString();
-        original_language = in.readString();
+       // original_title = in.readString();
+       // original_language = in.readString();
         title = in.readString();
-        backdrop_path = in.readString();
+       // backdrop_path = in.readString();
         popularity = in.readFloat();
         vote_count = in.readInt();
-        video = in.readByte() != 0x00;
+      //  video = in.readByte() != 0x00;
         videosInfo=new ArrayList<>();
+        reviews=new ArrayList<>();
 
     }
 
@@ -242,21 +233,26 @@ public class MovieClass implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+
+
+
         dest.writeFloat(vote_average);
         dest.writeString(poster_path);
-        dest.writeByte((byte) (adult ? 0x01 : 0x00));
+       // dest.writeByte((byte) (adult ? 0x01 : 0x00));
         dest.writeString(overview);
         dest.writeString(release_date);
-        dest.writeInt(genre_ids.length);
-        dest.writeIntArray(genre_ids);
-        dest.writeInt(id);
-        dest.writeString(original_title);
-        dest.writeString(original_language);
+      //  dest.writeInt(genre_ids.length);
+      //  dest.writeIntArray(genre_ids);
+       dest.writeInt(id);
+     //   dest.writeString(original_title);
+      //  dest.writeString(original_language);
         dest.writeString(title);
-        dest.writeString(backdrop_path);
+      //  dest.writeString(backdrop_path);
         dest.writeFloat(popularity);
         dest.writeInt(vote_count);
-        dest.writeByte((byte) (video ? 0x01 : 0x00));
+      //  dest.writeByte((byte) (video ? 0x01 : 0x00));}
+
+
 
     }
     private void loadReviews() {
@@ -274,7 +270,7 @@ public class MovieClass implements Parcelable {
             JSONArray jsonArray = jsonObject.getJSONArray("results");
 
             for (int i = 0; i < jsonArray.length(); i++) {
-                reviews.add(new MovieClass.Review(jsonArray.getJSONObject(i).getString("author"), jsonArray.getJSONObject(i).getString("content")));
+                reviews.add(new MovieClass.Review(jsonArray.getJSONObject(i).getString("author"), jsonArray.getJSONObject(i).getString("content")))  ;
             }
 
 
@@ -289,7 +285,6 @@ public class MovieClass implements Parcelable {
         String jsonStrTrailers = "";
 
         Uri builtTrailersUri = Uri.parse(BASE_URL + getId() + VIDEOS + API_KEY);
-
         jsonStrTrailers = MainFragment.buildJsonStr(builtTrailersUri.toString());
         if(jsonStrTrailers==null){
             return;
@@ -329,12 +324,17 @@ public class MovieClass implements Parcelable {
         String key;
         String name;
         String fullLink;
+        String id;
         final String BASE_YOUTUBE_LINK="https://www.youtube.com/watch?v=";
        public VideoInfo(String name,String key){
            this.name=name;
            this.key=key;
            this.fullLink= BASE_YOUTUBE_LINK+key;
+           this.id=id;
        }
+
+
+
         public String getkey() {
             return key;
         }
@@ -368,11 +368,14 @@ public class MovieClass implements Parcelable {
     public static class Review{
         String content;
         String name;
-        final String BASE_YOUTUBE_LINK="https://www.youtube.com/watch?v=";
+
+
         public Review(String name,String content){
             this.name=name;
             this.content=content;
+
         }
+
         public String getContent() {
             return content;
         }

@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.bethechange.movieproject.Favorites.MoviesHelper;
+import com.example.bethechange.movieproject.Favorites.Data.MoviesHelper;
 import com.example.bethechange.movieproject.Fragments.DetailsFragment;
 import com.example.bethechange.movieproject.Fragments.MainFragment;
 import com.example.bethechange.movieproject.Interface.OnFavoriteStateChangeListener;

@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.bethechange.movieproject.Favorites.FavoritesHandler;
+import com.example.bethechange.movieproject.Favorites.Data.MoviesHelper;
 import com.example.bethechange.movieproject.Interface.OnFavoriteStateChangeListener;
 import com.example.bethechange.movieproject.Model.MovieClass;
 import com.example.bethechange.movieproject.R;
@@ -43,6 +43,7 @@ public class DetailsFragment extends Fragment {
     CheckBox fav;
     ImageView poster;
     ExpandableListView reviewsListView;
+    MoviesHelper moviesHelper;
 
     boolean isFav = false;
     final String BASE_URL = "http://api.themoviedb.org/3/movie/";
@@ -70,8 +71,10 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+          moviesHelper=new MoviesHelper(getActivity());
 
-        favoritesList = FavoritesHandler.loadFavorites(getActivity());
+        favoritesList=moviesHelper.loadFavoritesMovies();
+     //   favoritesList = FavoritesHandler.loadFavorites(getActivity());
         if (favoritesList.contains(movieClass)) {
             isFav = true;
 
@@ -92,16 +95,20 @@ public class DetailsFragment extends Fragment {
 
     @Override
     public void onPause() {
-
+        MoviesHelper moviesHelper=new MoviesHelper(getActivity());
         if (fav != null && fav.isChecked() != isFav) {
-            if (fav.isChecked())
-                favoritesList.add(movieClass);
+
+            if (fav.isChecked()){
+                moviesHelper.InsertMovie(movieClass);
+             //   favoritesList.add(movieClass);
+            }
             else {
-                favoritesList.remove(movieClass);
+                moviesHelper.DeleteMovie(movieClass.getId());
+               // favoritesList.remove(movieClass);
 
             }
 
-            FavoritesHandler.saveFavorites(favoritesList, getActivity());
+
             isFav = fav.isChecked();
         }
         super.onPause();
@@ -158,7 +165,7 @@ public class DetailsFragment extends Fragment {
             });
         }
         poster = (ImageView) getActivity().findViewById(R.id.poster);
-        title.setText(movieClass.getOriginal_title());
+        title.setText(movieClass.getTitle());
         vote_count.setText(String.valueOf(movieClass.getVote_count()) + " votes");
         year.setText(movieClass.getRelease_date());
         rate.setText(String.valueOf(movieClass.getVote_average()) + " / 10");
@@ -192,7 +199,6 @@ public class DetailsFragment extends Fragment {
         for (int i = 0; i < data.length || data.length == 0; i++) {
             TextView textView = new TextView(getActivity());
             textView.setTextColor(Color.rgb(139, 137, 137));
-            // textView.setMovementMethod(LinkMovementMethod.getInstance());
             textView.setBackgroundResource(android.R.drawable.list_selector_background);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
             if (data.length != 0) {

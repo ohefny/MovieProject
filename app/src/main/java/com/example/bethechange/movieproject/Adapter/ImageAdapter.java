@@ -73,10 +73,11 @@ public class ImageAdapter extends BaseAdapter {
             imageView=(ImageView)view.getTag();
         }
 
-
+        String ImgPath=movieClassesList.get(position).getFullImgPath().trim();
         Picasso.with(adpContext)
-                .load(movieClassesList.get(position).getFullImgPath().trim())
-                .placeholder(R.drawable.thumbnail).error(R.drawable.thumbnail)
+
+                .load((ImgPath!=null)?ImgPath:" ").error(R.drawable.thumbnail)
+                .placeholder(R.drawable.thumbnail)
                 .into(imageView);
 
 
@@ -84,5 +85,10 @@ public class ImageAdapter extends BaseAdapter {
 
 
 
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 1;
     }
 }

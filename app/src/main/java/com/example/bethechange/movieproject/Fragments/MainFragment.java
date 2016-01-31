@@ -19,7 +19,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.bethechange.movieproject.Adapter.ImageAdapter;
-import com.example.bethechange.movieproject.Favorites.FavoritesHandler;
+import com.example.bethechange.movieproject.Favorites.Data.MoviesHelper;
 import com.example.bethechange.movieproject.FetchThread.FetchTask;
 import com.example.bethechange.movieproject.Interface.OnMovieSelectionChangeListener;
 import com.example.bethechange.movieproject.Model.MovieClass;
@@ -54,6 +54,7 @@ public class MainFragment extends Fragment {
     ImageAdapter imageAdapter;
     SharedPreferences sharedPreferences;
     boolean cachedDatePresent = false;
+    MoviesHelper moviesHelper;
 
     public MainFragment() {
         movieClassesList = new ArrayList<>();
@@ -77,7 +78,7 @@ public class MainFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-
+        
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String sort = sharedPreferences.getString(getString(R.string.pref_sort), getString(R.string.sort_via_popularity));
 
@@ -85,7 +86,7 @@ public class MainFragment extends Fragment {
 
          if (imageAdapter != null) {
             if (sort.equals("favorites")) {
-                movieClassesList= FavoritesHandler.loadFavorites(getActivity());
+                movieClassesList= moviesHelper.loadFavoritesMovies();
                 sortBy = sort;
                 imageAdapter = new ImageAdapter(getActivity(), movieClassesList);
                 buildGrid();
@@ -104,7 +105,7 @@ public class MainFragment extends Fragment {
             sortBy = sort;
              String jsonStr = buildJsonStr(getURlInString());
             if (sort.equals("favorites"))
-                movieClassesList= FavoritesHandler.loadFavorites(getActivity());
+                movieClassesList= moviesHelper.loadFavoritesMovies();
             else
                 buildMoviesArray(jsonStr, true);
             imageAdapter = new ImageAdapter(getActivity(), movieClassesList);
@@ -120,6 +121,7 @@ public class MainFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        moviesHelper = new MoviesHelper(getActivity());
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         return rootView;
     }
@@ -206,7 +208,7 @@ public class MainFragment extends Fragment {
             Toast.makeText(getActivity(),"Connection Problem",Toast.LENGTH_LONG).show();
             if(movieClassesList==null||movieClassesList.size()==0){
                 Toast.makeText(getActivity(),"Loading Favorite Movies ",Toast.LENGTH_LONG).show();
-                movieClassesList= FavoritesHandler.loadFavorites(getActivity());
+                movieClassesList= moviesHelper.loadFavoritesMovies();
                 if(imageAdapter!=null)
                 imageAdapter.notifyDataSetChanged();
                 //buildGrid();
