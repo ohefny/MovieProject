@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.bethechange.movieproject.Favorites.FavoritesHandler;
+import com.example.bethechange.movieproject.Interface.OnFavoriteStateChangeListener;
 import com.example.bethechange.movieproject.Model.MovieClass;
 import com.example.bethechange.movieproject.R;
 import com.squareup.picasso.Picasso;
@@ -42,19 +43,19 @@ public class DetailsFragment extends Fragment {
     CheckBox fav;
     ImageView poster;
     ExpandableListView reviewsListView;
+
     boolean isFav = false;
     final String BASE_URL = "http://api.themoviedb.org/3/movie/";
-    final String API_KEY = "?api_key=YourKey";
+    final String API_KEY = "?api_key=b8be982434834910f4662f9e5fb3bacb";
     HashMap<String, String> trailerseMap;
     HashMap<String, String> reviewseMap;
     android.support.v4.widget.NestedScrollView rootview;
 
     enum LinearListType {TRAILERS_LIST, REVIEWS_LIST}
 
-    ;
 
     public DetailsFragment() {
-        favoritesList = new ArrayList<MovieClass>();
+        favoritesList = new ArrayList<>();
 
 
     }
@@ -70,10 +71,9 @@ public class DetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-            favoritesList= FavoritesHandler.loadFavorites(getActivity());
-            if (favoritesList.contains(movieClass)) {
-                isFav = true;
-
+        favoritesList = FavoritesHandler.loadFavorites(getActivity());
+        if (favoritesList.contains(movieClass)) {
+            isFav = true;
 
 
         }
@@ -93,7 +93,7 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onPause() {
 
-        if ( fav!=null &&fav.isChecked() != isFav) {
+        if (fav != null && fav.isChecked() != isFav) {
             if (fav.isChecked())
                 favoritesList.add(movieClass);
             else {
@@ -138,6 +138,25 @@ public class DetailsFragment extends Fragment {
         overview = (TextView) getActivity().findViewById(R.id.overview);
         fav = (CheckBox) getActivity().findViewById(R.id.fav);
         fav.setChecked(isFav);
+        if (MainFragment.isTablet(getActivity())) {
+            fav.setOnClickListener(new View.OnClickListener() {
+                ArrayList<MovieClass> arrayList = new ArrayList<>(favoritesList);
+
+                @Override
+                public void onClick(View v) {
+
+
+                    if (!fav.isChecked())
+                        arrayList.remove(movieClass);
+                    else
+                        arrayList.add(movieClass);
+
+                    ((OnFavoriteStateChangeListener) getActivity()).OnStateChanged(arrayList);
+
+
+                }
+            });
+        }
         poster = (ImageView) getActivity().findViewById(R.id.poster);
         title.setText(movieClass.getOriginal_title());
         vote_count.setText(String.valueOf(movieClass.getVote_count()) + " votes");
@@ -172,7 +191,7 @@ public class DetailsFragment extends Fragment {
 
         for (int i = 0; i < data.length || data.length == 0; i++) {
             TextView textView = new TextView(getActivity());
-            textView.setTextColor(Color.rgb(139,137,137));
+            textView.setTextColor(Color.rgb(139, 137, 137));
             // textView.setMovementMethod(LinkMovementMethod.getInstance());
             textView.setBackgroundResource(android.R.drawable.list_selector_background);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);

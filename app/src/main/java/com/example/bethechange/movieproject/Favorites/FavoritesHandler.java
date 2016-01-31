@@ -28,10 +28,10 @@ public class FavoritesHandler {
 
             favoritesList.clear();
             favoritesList = gson.fromJson(json, type);
-
+            System.out.println("fuck fav size" + favoritesList.size());
         }
         if (favoritesList == null)
-            favoritesList = new ArrayList<MovieClass>();
+            favoritesList = new ArrayList<>();
         return favoritesList;
     }
 

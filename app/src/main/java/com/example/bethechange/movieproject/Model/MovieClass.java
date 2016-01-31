@@ -33,7 +33,7 @@ public class MovieClass implements Parcelable {
     ArrayList<Review>reviews;
     String BASE_IMG_URL = "http://image.tmdb.org/t/p/w185/";
     final String BASE_URL = "http://api.themoviedb.org/3/movie/";
-    final String API_KEY = "?api_key=YourKey";
+    final String API_KEY = "?api_key=b8be982434834910f4662f9e5fb3bacb";
     @Override
     public boolean equals(Object o) {
         if(o instanceof  MovieClass){
@@ -181,7 +181,7 @@ public class MovieClass implements Parcelable {
     }*/
     public ArrayList<VideoInfo> getVideosInfo() {
         if(videosInfo==null){
-            videosInfo=new ArrayList<VideoInfo>();
+            videosInfo=new ArrayList<>();
 
 
         }
@@ -204,7 +204,7 @@ public class MovieClass implements Parcelable {
 
     public ArrayList<Review> getReviews() {
         if(reviews==null){
-            reviews=new ArrayList<Review>();
+            reviews=new ArrayList<>();
 
 
         }
@@ -231,7 +231,7 @@ public class MovieClass implements Parcelable {
         popularity = in.readFloat();
         vote_count = in.readInt();
         video = in.readByte() != 0x00;
-        videosInfo=new ArrayList<VideoInfo>();
+        videosInfo=new ArrayList<>();
 
     }
 
@@ -354,7 +354,7 @@ public class MovieClass implements Parcelable {
         @Override
         public boolean equals(Object o) {
             if(o instanceof VideoInfo){
-                return  ((VideoInfo)o).name==this.name;
+                return  ((VideoInfo)o).name.equals(this.name);
             }
             return false;
         }
@@ -391,10 +391,8 @@ public class MovieClass implements Parcelable {
 
         @Override
         public boolean equals(Object o) {
-            if(o instanceof VideoInfo){
-                return  ((VideoInfo)o).name==this.name;
-            }
-            return false;
+                return  (o instanceof VideoInfo) && ((VideoInfo)o).name.equals(this.name);
+
         }
 
     }

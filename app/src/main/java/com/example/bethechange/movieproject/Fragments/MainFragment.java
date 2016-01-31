@@ -42,7 +42,7 @@ public class MainFragment extends Fragment {
     ArrayList<MovieClass> movieClassesList;
     ArrayList<MovieClass> arrayList;
     ArrayList<MovieClass> favoritesList;
-    final String KEY_PARAM = "&api_key=YourKey";
+    final String KEY_PARAM = "&api_key=b8be982434834910f4662f9e5fb3bacb";
     final String BASEURL_PARAM = "http://api.themoviedb.org/3/discover/movie?page=";
     final String SORT_BASE = "&sort_by=";
     String sortBy = "popularity";
@@ -54,14 +54,22 @@ public class MainFragment extends Fragment {
     ImageAdapter imageAdapter;
     SharedPreferences sharedPreferences;
     boolean cachedDatePresent = false;
-    boolean emptySelectionTablet=true;
 
     public MainFragment() {
-        movieClassesList = new ArrayList<MovieClass>();
-        arrayList = new ArrayList<MovieClass>();
+        movieClassesList = new ArrayList<>();
+        arrayList = new ArrayList<>();
 
-        favoritesList = new ArrayList<MovieClass>();
+        favoritesList = new ArrayList<>();
 
+    }
+    public void changeFavorites(ArrayList<MovieClass>list){
+        if(!sortBy.equals("favorites")&&!cachedDatePresent)
+            return;
+        movieClassesList=(ArrayList<MovieClass>)list.clone();
+        imageAdapter=new ImageAdapter(getActivity(),movieClassesList);
+        int first = grid.getFirstVisiblePosition();
+        buildGrid();
+        grid.setSelection(first);
     }
 
 
@@ -81,7 +89,7 @@ public class MainFragment extends Fragment {
                 sortBy = sort;
                 imageAdapter = new ImageAdapter(getActivity(), movieClassesList);
                 buildGrid();
-            } else if (sortBy != sort || cachedDatePresent) {
+            } else if (!sortBy.equals(sort)  || cachedDatePresent) {
                 loadedPages=1;
                 sortBy = sort;
                 cachedDatePresent=false;
@@ -165,7 +173,7 @@ public class MainFragment extends Fragment {
 
     public void buildMoviesArray(String jsonStr, boolean clear) {
         ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject jsonObject1 = new JSONObject();
+
 
 
         try {
@@ -179,8 +187,7 @@ public class MainFragment extends Fragment {
                 cachedDatePresent=false;
             }
             for (int i = 0; i < jsonArray.length(); i++) {
-                jsonObject1 = jsonArray.getJSONObject(i);
-                movieClassesList.add(objectMapper.readValue(jsonObject1.toString(), MovieClass.class));
+                movieClassesList.add(objectMapper.readValue(jsonArray.getJSONObject(i).toString(), MovieClass.class));
 
 
             }
@@ -203,13 +210,14 @@ public class MainFragment extends Fragment {
                 if(imageAdapter!=null)
                 imageAdapter.notifyDataSetChanged();
                 //buildGrid();
+                cachedDatePresent=true;
 
             }
             else{
                 Toast.makeText(getActivity(),"Loading Cached Movies",Toast.LENGTH_LONG).show();
 
             }
-            cachedDatePresent=true;
+
         }
 
     }
